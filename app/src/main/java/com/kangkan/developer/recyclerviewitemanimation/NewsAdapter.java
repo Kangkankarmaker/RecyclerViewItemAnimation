@@ -27,10 +27,6 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
         this.isDark = isDark;
     }
 
-    public NewsAdapter(Context context, List<NewsItem> mData) {
-        this.context = context;
-        this.mData = mData;
-    }
 
     @NonNull
     @Override
@@ -38,7 +34,6 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
 
       View layout;
       layout= LayoutInflater.from(context).inflate(R.layout.iten_news,viewGroup,false);
-
 
         return new  NewsViewHolder(layout);
     }
@@ -71,8 +66,6 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
         ImageView imageView;
 
         RelativeLayout relativeLayout;
-
-
 
 
 

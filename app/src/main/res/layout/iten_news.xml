@@ -29,13 +29,13 @@
 
         <TextView
             android:id="@+id/txt_details"
-            android:layout_width="327dp"
+            android:layout_width="291dp"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginLeft="57dp"
-            android:layout_marginStart="40dp"
+            android:layout_marginLeft="53dp"
+            android:layout_marginStart="53dp"
             android:layout_marginTop="50dp"
             android:hint="hey guys,
 in this side series we are going to create a beautiful list UI with animation :
@@ -49,14 +49,13 @@ next part we will setup the adapter
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="42dp"
-            android:layout_marginTop="19dp"
+            android:layout_below="@+id/txt_side"
+            android:layout_marginStart="60dp"
             android:hint="Title"
             android:text=""
             android:textColor="#d40505"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="42dp" />
+            android:layout_marginLeft="60dp"
+            android:layout_alignParentLeft="true" />
 
         <ImageView
             android:id="@+id/img_view"
