@@ -8,16 +8,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder> {
+public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder> implements Filterable{
 
     Context context;
     List<NewsItem> mData;
+    List<NewsItem> mDataFilter;
 
     boolean isDark=false;
 
@@ -25,6 +29,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
         this.context = context;
         this.mData = mData;
         this.isDark = isDark;
+        this.mDataFilter= mData;
     }
 
 
@@ -45,17 +50,48 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
         newsViewHolder.imageView.setAnimation(AnimationUtils.loadAnimation(context,R.anim.fade_trans));
         newsViewHolder.relativeLayout.setAnimation(AnimationUtils.loadAnimation(context,R.anim.fade_scale_anim));
 
-        newsViewHolder.tv_title.setText(mData.get(position).getTitle());
-        newsViewHolder.tv_content.setText(mData.get(position).getContent());
-        newsViewHolder.tv_date.setText(mData.get(position).getDate());
-        newsViewHolder.imageView.setImageResource(mData.get(position).getUserPhoto());
+        newsViewHolder.tv_title.setText(mDataFilter.get(position).getTitle());
+        newsViewHolder.tv_content.setText(mDataFilter.get(position).getContent());
+        newsViewHolder.tv_date.setText(mDataFilter.get(position).getDate());
+        newsViewHolder.imageView.setImageResource(mDataFilter.get(position).getUserPhoto());
 
 
     }
 
     @Override
     public int getItemCount() {
-        return mData.size();
+        return mDataFilter.size();
+    }
+
+    @Override
+    public Filter getFilter() {
+
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                String key=constraint.toString();
+                if (key.isEmpty()){
+                    mDataFilter=mData;
+                }else {
+                    List<NewsItem>isFiltered =new ArrayList<>();
+                    for (NewsItem row : mData){
+                        if (row.getTitle().toLowerCase().contains(key.toLowerCase())){
+                            isFiltered.add(row);
+                        }
+                    }
+                }
+                FilterResults filterResults=new FilterResults();
+                filterResults.values=mDataFilter;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+
+                mDataFilter=(List<NewsItem>)results.values;
+                notifyDataSetChanged();
+            }
+        };
     }
 
     public class NewsViewHolder extends RecyclerView.ViewHolder{
